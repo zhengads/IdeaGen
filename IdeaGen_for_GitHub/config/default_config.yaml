@@ -1,0 +1,82 @@
+# Default configuration for InternAgent
+# This file is loaded when no specific config path is provided
+
+version: "1.0.0"
+
+# Model Providers Configuration
+models:
+  default_provider: "openai" # 这边只是一个代号
+
+  openai:
+    model_name: "Qwen/Qwen3.5-27B" # 模型名称前面可能还是需要加上openai/ 前缀
+    api_key: ""  # Set via environment variable OPENAI_API_KEY
+    max_tokens: 4096
+    temperature: 0.7
+    fallbacks: []  # 备用模型列表，例如：["modelA", "modelB"]
+
+# Memory Configuration
+memory:
+  backend: "file_system"
+  file_dir: "results"
+
+# Agent Configuration
+agents:
+  # Idea Generation Agent
+  generation:
+    model_provider: "default"
+    generation_count: 5
+    creativity: 0.7
+    do_survey: false
+
+  # Reflection Agent
+  reflection:
+    model_provider: "default"
+    detail_level: "medium"
+
+  # Evolution Agent
+  evolution:
+    model_provider: "default"
+    creativity_level: 0.6
+
+  # Method Development Agent
+  method_development:
+    model_provider: "openai"
+    model_name: "Qwen/Qwen3.5-27B"
+    fallbacks: []  # 备用模型列表，例如：["modelA", "modelB"]
+
+  # Refinement Agent
+  refinement:
+    model_provider: "openai"
+    model_name: "Qwen/Qwen3.5-27B"
+    fallbacks: []  # 备用模型列表，例如：["modelA", "modelB"]
+
+  # Ranking Agent
+  ranking:
+    model_provider: "default"
+    criteria:
+      novelty: 0.2
+      plausibility: 0.2
+      testability: 0.3
+      alignment: 0.3
+
+  # Scholar Agent
+  scholar:
+    model_provider: "default"
+    search_depth: "moderate"
+    sources: ["arxiv"]
+
+  # Survey Agent
+  survey:
+    model_provider: "default"
+    sources: ["arxiv"]
+
+  # Experiment Design Agent
+  experiment_design:
+    model_provider: "default"
+
+# Workflow Configuration
+workflow:
+  max_iterations: 1
+  top_ideas_count: 3
+  top_ideas_evo: false
+  max_concurrent_tasks: 5
